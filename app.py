@@ -1,7 +1,6 @@
 import csv
 
 input_file = "Sales.csv"
-error_log = "errors.log"
 summary_file = "sales_summary.csv"
 
 
@@ -9,16 +8,27 @@ def save_summary(summary_dic):
     #writes the summary to the summary file
     pass
 
-def log_error(record, line, error_message):
+
+
+def log_error(record, line_num, error_message):
     #open the error log and record whatever error it is
-    pass
+    with open("error_log.txt", "a") as log_file:
+        log_file.write(f"Line {line_num} | {error_message} | {record}\n")
+
 
 
 def validate_transaction(line_num, record) ->bool:
    #check the record for valid fields
    #if an invalid field is found, call log error with the record, line num and message and return false
    #if no error is found, return true
-   pass
+    if record["Customer"] == "" or record["Item"] == "" or record["Qty"] == "" or record["Price Total"] == "":
+        for field in record:
+            if record[field] == "":
+                error_message = (f"{field} Is missing")
+                log_error(record, line_num, error_message)
+                return False
+    elif record["Qty"].isdigit() == False or record["Price Total"].isdigit() == False:
+        for field in 
 
 def update_summary(rec, dict):
     # assuming record is valid at this point, update or create a record in the dictionary for the product
@@ -30,9 +40,22 @@ def read_sales() -> tuple[dict, int]:
     #if invalid add one to invalid_records 
     product_sales = {}
     invalid_records = 0
-    with open(filepath, "r", newline="") as file:
-        reader = csv.reader(file)
+    
+    with open("Sales", "r", newline="") as file:
+        reader = csv.DictReader(file)
         header = next(reader)
+        for row in reader:
+           if row["Customer"] or row["Item"] or row["Qty"] or ["Price total"] == "":
+                invalid_records += 1
+
+
+           elif row["Customer", "Item", "Qty", "Price Total"] == "":
+           
+           
+           if row["Customer", "Item", "Qty", "Price Total"] == "":
+               
+
+        # if
 
 def display_totals(summary_recs):
     pass
